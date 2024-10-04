@@ -1,0 +1,72 @@
+.popup-delete {
+ display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.popup-delete-opened{
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-delete__itens{
+  width: 430px;
+  height: 181px;
+  position: fixed;
+  z-index: 1;
+  border-radius: 8px;
+  background: #fff;
+  left: 415px;
+  top: 395px;
+}
+
+
+.popup-delete__title {
+  width: 358px;
+  height: 23px;
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29.05px;
+  text-align: left;
+  color: #000000;
+  margin: 30px 35px;
+}
+
+.popup-delete__button:hover{
+  opacity: 50%;
+}
+
+.popup-delete__button {
+  width: 358px;
+  height: 50px;
+  border: none;
+  border-radius: 2px 0px 0px 0px;
+  background-color: #000;
+  margin: 10px 35px;
+  color: white;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.78px;
+  text-align: center;
+  transition: opacity 200ms ease-in-out;
+}
+
+.popup-delete__icon:hover{
+  opacity: 50%;
+}
+
+.popup-delete__icon{
+  position: absolute;
+  max-width: 40px;
+  max-height: 40px;
+  bottom: 179px;
+  left: 430px;
+
+}
