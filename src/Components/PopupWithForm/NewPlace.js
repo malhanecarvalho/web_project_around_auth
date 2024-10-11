@@ -1,11 +1,15 @@
 import iconClose from "../../images/icone_fechar.svg";
+import React from "react";
 import { useState } from "react";
+import { CurrentCardContext} from "../../contexts/CurrentCardContext";
 
-function NewPlace({ submit, onClose, classPopupAddPlace }) {
+
+function NewPlace({ onClose, classPopupAddPlace }) {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessageURL, setErrorMessageURL] = useState("");
+  const { handleSubmit} = React.useContext(CurrentCardContext);
 
   const validateInput = (value) => {
     if (value === "" || value.length <= 2) {
@@ -40,7 +44,7 @@ function NewPlace({ submit, onClose, classPopupAddPlace }) {
   function handleSubmitAdd(evt) {
     evt.preventDefault();
 
-    submit({ title, url });
+    handleSubmit({ title, url });
     setTitle("");
     setUrl("");
 

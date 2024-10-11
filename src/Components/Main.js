@@ -1,24 +1,70 @@
 import React from "react";
+import { useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { CurrentCardContext } from "../contexts/CurrentCardContext";
 import iconEdit from "../images/icone_editar.svg";
 import ProfileEdit from "./PopupWithForm/ProfileEdit";
 import ProfileImgEdit from "./PopupWithForm/ProfileImgEdit";
 import PopupWithForm from "./PopupWithForm/PopupWithForm";
+import Card from "./Card";
+import NewPlace from "./PopupWithForm/NewPlace";
+import ImagePopup from "./PopupWithForm/PopupImg";
+import PopupDeleteConfirmation from "./PopupWithForm/PopupDeleteConfirmation";
 
-function Main({
-  isEditProfilePopupOpen,
-  isAddPlacePopupOpen,
-  isEditAvatarPopupOpen,
-  onClose,
-  classPopupProfile,
-  classPopupEdit,
-  onProfileInfo,
-  onProfileInfoAvatar,
-  onUpdateUser,
-  onUpdateAvatar
-}) {
-  const { currentUser } = React.useContext(CurrentUserContext);
+function Main() {
+  const [cardLink, setCardLink] = useState({ name: "", link: "" });
+  const [cardDelete, setCardDelete] = useState([]);
+  const [isOpen, setOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isPopupDeleteOpen, setIsPopupDeleteOpen] = useState(false);
+  const classPopupImg = isOpen ? "popup-img-opened" : "";
+  const classPopupProfile = isEditProfilePopupOpen ? "popup-opened" : "";
+  const classPopupAddPlace = isAddPlacePopupOpen ? "popup-add-opened" : "";
+  const classPopupEdit = isEditAvatarPopupOpen ? "popup-edit-opened" : "";
+  const classPopupDeleteCard = isPopupDeleteOpen ? "popup-delete-opened" : "";
 
+  const {
+    currentUser,
+    onProfileInfo,
+    onProfileInfoAvatar,
+    onUpdateUser,
+    onUpdateAvatar,
+  } = React.useContext(CurrentUserContext);
+
+  const { cards, addLike, removeLike, handleDelete, myId } =
+    React.useContext(CurrentCardContext);
+
+  function onEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function onEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function onAddPlaceClick() {
+    setisAddPlacePopupOpen(true);
+  }
+
+  function onPopupDeleteClick(card) {
+    setIsPopupDeleteOpen(true);
+    setCardDelete(card);
+  }
+
+  function onCardClick(card) {
+    setCardLink(card);
+    setOpen(true);
+  }
+
+  function handleClosePopup() {
+    setOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setisAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsPopupDeleteOpen(false);
+  }
   return (
     <>
       <main className="content">
@@ -33,7 +79,7 @@ function Main({
               className="profile__icon-avatar"
               src={iconEdit}
               alt="icone editar foto do perfil"
-              onClick={isEditAvatarPopupOpen}
+              onClick={onEditAvatarClick}
             />
           </div>
           <div className="profile__info">
@@ -43,27 +89,60 @@ function Main({
             <button
               type="button"
               className="profile__button profile__button_icon_edit"
-              onClick={isEditProfilePopupOpen}
+              onClick={onEditProfileClick}
             ></button>
           </div>
           <button
             type="button"
             className="profile__button-add profile__button-add_icon_add"
-            onClick={isAddPlacePopupOpen}
+            onClick={onAddPlaceClick}
           ></button>
         </section>
 
+        <ul className="cards">
+          <NewPlace
+            onClose={handleClosePopup}
+            classPopupAddPlace={classPopupAddPlace}
+          />
+          {cards.map((card, index) => (
+            <Card
+              key={index}
+              card={card}
+              onDelete={handleDelete}
+              myId={myId}
+              addLikes={addLike}
+              removeLikes={removeLike}
+              isPopupImgOpen={onCardClick}
+              isPopupDeleteOpen={onPopupDeleteClick}
+            />
+          ))}
+        </ul>
+
         <ProfileEdit
-          onClose={onClose}
+          onClose={handleClosePopup}
           classPopupProfile={classPopupProfile}
           onProfileEditChange={onProfileInfo}
           onUpdateUser={onUpdateUser}
         />
         <ProfileImgEdit
-          onClose={onClose}
+          onClose={handleClosePopup}
           classPopupEdit={classPopupEdit}
           onProfileAvatarChange={onProfileInfoAvatar}
           onUpdateAvatar={onUpdateAvatar}
+        />
+
+        <PopupDeleteConfirmation
+          classPopupDeleteCard={classPopupDeleteCard}
+          onClose={handleClosePopup}
+          onDelete={handleDelete}
+          myId={myId}
+          cardDelete={cardDelete}
+        />
+
+        <ImagePopup
+          cardLink={cardLink}
+          onClose={handleClosePopup}
+          popupImgOpened={classPopupImg}
         />
 
         <PopupWithForm />

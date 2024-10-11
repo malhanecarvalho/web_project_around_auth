@@ -1,6 +1,5 @@
 import React from "react";
 import {  CurrentUserContext } from "../contexts/CurrentUserContext";
-import { CurrentCardContext} from "../contexts/CurrentCardContext";
 import { useState } from "react";
 
 
