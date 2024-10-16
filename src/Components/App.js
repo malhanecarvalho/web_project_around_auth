@@ -71,7 +71,7 @@ function App() {
       <Header />
       {loggedIn && <NavBar handleLogout={handleLogout} />}
       <Switch>
-        <ProtectedRoute path="/main" loggedIn={loggedIn} component={Main} />
+        <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main} />
         <Route path="/register">
           <Register
             onRegisterSucessClick={onRegisterSucessClick}
@@ -85,7 +85,7 @@ function App() {
           <Login handleLogin={handleLogin} />
         </Route>
         <Route exact path="/">
-          {loggedIn ? <Redirect to="/main" /> : <Redirect to="/login" />}
+          {loggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
         </Route>
         <Main />
         <Footer />
