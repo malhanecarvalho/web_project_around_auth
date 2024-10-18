@@ -1,14 +1,25 @@
 import iconClose from "../../images/icone_fechar.svg";
 import { useState } from "react";
 
-function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange,  onUpdateAvatar }) {
+function ProfileImgEdit({
+  onClose,
+  classPopupEdit,
+  onProfileAvatarChange,
+  disabledButtonSubmit,
+  onDisableButtonSubmit,
+  onHabilityButtonSubmit,
+  classButtonEditSubmit
+}) {
   const [image, setImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const validateinputs = (value) => {
-    if (value === "" || value.length <= 2) {
+    const regexUrl = /^(?:https?:\/\/)?(w{3}\.)?[\w_-]+((\.\w{2,}){1,2})(\/([\w\._-]+\/?)*(\?[\w_-]+=[^\?\/&]*(\&[\w_-]+=[^\?\/&]*)*)?)?$/
+    if (value === "" || value.length <= 2 || !regexUrl.test(value)) {
+      onDisableButtonSubmit()
       return "Digite uma URL válida";
     } else {
+      onHabilityButtonSubmit()
       return "";
     }
   };
@@ -22,6 +33,11 @@ function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange,  onUpd
 
   function handleSubmitAvatar(evt) {
     evt.preventDefault();
+    if (image === "") {
+      onDisableButtonSubmit();
+    } else {
+      onHabilityButtonSubmit();
+    }
     setImage("");
 
     onClose();
@@ -44,13 +60,6 @@ function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange,  onUpd
           noValidate
         >
           <input
-            style={{
-              borderRightWidth: 0,
-              borderLeftWidth: 0,
-              borderTopWidth: 0,
-              borderBottomWidth: 0.5,
-              width: 285,
-            }}
             type="url"
             className={
               errorMessage
@@ -70,9 +79,11 @@ function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange,  onUpd
           )}
           <button
             type="submit"
-            className="popup__button popup-edit__button"
+            className={`${classButtonEditSubmit} popup__button popup-edit__button`}
             id="button-form-edit"
             onClick={() => onProfileAvatarChange({ image })}
+            disabled={disabledButtonSubmit}
+            onSubmit={handleSubmitAvatar}
           >
             Salvar
           </button>

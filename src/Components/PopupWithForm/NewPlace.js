@@ -1,28 +1,39 @@
 import iconClose from "../../images/icone_fechar.svg";
 import React from "react";
 import { useState } from "react";
-import { CurrentCardContext} from "../../contexts/CurrentCardContext";
+import { CurrentCardContext } from "../../contexts/CurrentCardContext";
 
-
-function NewPlace({ onClose, classPopupAddPlace }) {
+function NewPlace({
+  onClose,
+  classPopupAddPlace,
+  disabledButtonSubmit,
+  onDisableButtonSubmit,
+  onHabilityButtonSubmit,
+  classButtonAddSubmit
+}) {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessageURL, setErrorMessageURL] = useState("");
-  const { handleSubmit} = React.useContext(CurrentCardContext);
+  const { handleSubmit } = React.useContext(CurrentCardContext);
 
-  const validateInput = (value) => {
-    if (value === "" || value.length <= 2) {
+  const validateInput = (value) => {  
+    if (value === "" || value.length <= 2 ) {
+      onDisableButtonSubmit();
       return "Campo obrigatório";
     } else {
+      onHabilityButtonSubmit();
       return "";
     }
   };
 
   const validateInputUrl = (value) => {
-    if (value === "" || value.length <= 2) {
+    const regexUrl = /^(?:https?:\/\/)?(w{3}\.)?[\w_-]+((\.\w{2,}){1,2})(\/([\w\._-]+\/?)*(\?[\w_-]+=[^\?\/&]*(\&[\w_-]+=[^\?\/&]*)*)?)?$/;
+    if (value === "" || value.length <= 2 || !regexUrl.test(value)) {
+      onDisableButtonSubmit();
       return "Digite uma URL válida";
     } else {
+      onHabilityButtonSubmit();
       return "";
     }
   };
@@ -43,6 +54,12 @@ function NewPlace({ onClose, classPopupAddPlace }) {
 
   function handleSubmitAdd(evt) {
     evt.preventDefault();
+
+    if (title === "" || url === "") {
+      onDisableButtonSubmit();
+    } else {
+      onHabilityButtonSubmit();
+    }
 
     handleSubmit({ title, url });
     setTitle("");
@@ -70,12 +87,6 @@ function NewPlace({ onClose, classPopupAddPlace }) {
         >
           <div className="popup-add__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="text"
               className={
                 errorMessage
@@ -95,12 +106,6 @@ function NewPlace({ onClose, classPopupAddPlace }) {
           </div>
           <div className="popup-add__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="url"
               className={
                 errorMessageURL
@@ -120,9 +125,11 @@ function NewPlace({ onClose, classPopupAddPlace }) {
           </div>
           <button
             type="submit"
-            className="popup__button popup-add__button"
+            className={`${classButtonAddSubmit} popup__button popup-add__button`}
             id="button-form-add"
             name="buttons-forms"
+            disabled={disabledButtonSubmit}
+            onSubmit={handleSubmitAdd}
           >
             Criar
           </button>

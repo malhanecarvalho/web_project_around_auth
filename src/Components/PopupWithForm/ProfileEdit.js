@@ -5,7 +5,10 @@ function ProfileEdit({
   onClose,
   classPopupProfile,
   onProfileEditChange,
-  onUpdateUser,
+  disabledButtonSubmit,
+  onDisableButtonSubmit,
+  onHabilityButtonSubmit,
+  classButtonSubmit
 }) {
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
@@ -13,8 +16,10 @@ function ProfileEdit({
 
   const validateinputs = (value) => {
     if (value === "" || value.length <= 2) {
+      onDisableButtonSubmit();
       return "Campo obrigatório";
     } else {
+      onHabilityButtonSubmit();
       return "";
     }
   };
@@ -35,7 +40,11 @@ function ProfileEdit({
 
   function handleSubmitProfile(evt) {
     evt.preventDefault();
-
+    if (title === "" || about === "") {
+      onDisableButtonSubmit();
+    } else {
+      onHabilityButtonSubmit();
+    }
     setTitle("");
     setAbout("");
 
@@ -61,12 +70,6 @@ function ProfileEdit({
         >
           <div className="popup__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="text"
               className={
                 errorMessage.name
@@ -87,12 +90,6 @@ function ProfileEdit({
           </div>
           <div className="popup__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="text"
               className={
                 errorMessage.about
@@ -113,10 +110,13 @@ function ProfileEdit({
           </div>
           <button
             type="submit"
-            className="popup__button"
+            className={`${classButtonSubmit} popup__button`}
             id="button-form"
             name="buttons-forms"
             onClick={() => onProfileEditChange({ title, about })}
+            disabled={disabledButtonSubmit}
+            onSubmit={handleSubmitProfile}
+
           >
             Salvar
           </button>

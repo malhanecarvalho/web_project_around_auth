@@ -19,11 +19,24 @@ function Main() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isPopupDeleteOpen, setIsPopupDeleteOpen] = useState(false);
+  const [disabledButtonSubmit, setDisabledButtonSubmit] = useState(true);
   const classPopupImg = isOpen ? "popup-img-opened" : "";
   const classPopupProfile = isEditProfilePopupOpen ? "popup-opened" : "";
   const classPopupAddPlace = isAddPlacePopupOpen ? "popup-add-opened" : "";
   const classPopupEdit = isEditAvatarPopupOpen ? "popup-edit-opened" : "";
   const classPopupDeleteCard = isPopupDeleteOpen ? "popup-delete-opened" : "";
+  const classButtonSubmit = disabledButtonSubmit ? "popup__button_disabled" : "";
+  const classButtonAddSubmit = disabledButtonSubmit ? "popup-add__button_disabled" : "";
+  const classButtonEditSubmit = disabledButtonSubmit ? "popup-edit__button_disabled" : "";
+
+
+  function onDisableButtonSubmit() {
+    setDisabledButtonSubmit(true);
+  }
+
+  function onHabilityButtonSubmit() {
+    setDisabledButtonSubmit(false);
+  }
 
   const {
     currentUser,
@@ -103,6 +116,10 @@ function Main() {
           <NewPlace
             onClose={handleClosePopup}
             classPopupAddPlace={classPopupAddPlace}
+            disabledButtonSubmit={disabledButtonSubmit}
+            onDisableButtonSubmit={onDisableButtonSubmit}
+            onHabilityButtonSubmit={onHabilityButtonSubmit}
+            classButtonAddSubmit={classButtonAddSubmit}
           />
           {cards.map((card, index) => (
             <Card
@@ -123,12 +140,20 @@ function Main() {
           classPopupProfile={classPopupProfile}
           onProfileEditChange={onProfileInfo}
           onUpdateUser={onUpdateUser}
+          disabledButtonSubmit={disabledButtonSubmit}
+          onDisableButtonSubmit={onDisableButtonSubmit}
+          onHabilityButtonSubmit={onHabilityButtonSubmit}
+          classButtonSubmit={classButtonSubmit}
         />
         <ProfileImgEdit
           onClose={handleClosePopup}
           classPopupEdit={classPopupEdit}
           onProfileAvatarChange={onProfileInfoAvatar}
           onUpdateAvatar={onUpdateAvatar}
+          disabledButtonSubmit={disabledButtonSubmit}
+          onDisableButtonSubmit={onDisableButtonSubmit}
+          onHabilityButtonSubmit={onHabilityButtonSubmit}
+          classButtonEditSubmit={classButtonEditSubmit}
         />
 
         <PopupDeleteConfirmation

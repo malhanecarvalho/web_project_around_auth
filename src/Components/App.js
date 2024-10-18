@@ -88,8 +88,8 @@ function App() {
           {loggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
         </Route>
         <Main />
-        <Footer />
       </Switch>
+      <Footer />
     </div>
   );
 }
