@@ -13,5 +13,4 @@
 @import url(./blocks/navBar.css);
 @import url(./blocks/register.css);
 @import url(./blocks/login.css);
-@import url(./blocks/register-sucess.css);
-@import url(./blocks/register-fail.css);
+@import url(./blocks/infoTooltip.css);

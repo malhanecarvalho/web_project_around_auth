@@ -45,7 +45,7 @@ function Signin({handleLogin}) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      if (password !== "" && email !== "") {
+      if (password && email) {
         let response = await auth.login({ email, password });
         if (response.status === 401) {
           return "Email ou senha inválidos"  
@@ -70,16 +70,6 @@ function Signin({handleLogin}) {
         <form className="signin__form" onSubmit={handleSubmit} noValidate>
           <div className="signin__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 2,
-                borderBottomColor: "darkgray",
-                backgroundColor: "black",
-                width: 358,
-                color:"white"
-              }}
               type="email"
               className={
                 errorMessage
@@ -98,16 +88,6 @@ function Signin({handleLogin}) {
 
           <div className="signin__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 2,
-                borderBottomColor: "darkgray",
-                backgroundColor: "black",
-                color: "white",
-                width: 358,
-              }}
               type="password"
               className={
                 errorMessagePassword

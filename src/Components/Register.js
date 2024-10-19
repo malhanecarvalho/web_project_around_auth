@@ -2,28 +2,17 @@ import React from "react";
 import { useState } from "react";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import * as auth from "../utils/auth";
-import PopupRegisterSucess from "./PopupWithForm/PopupRegisterSucess";
-import PopupRegisterFail from "./PopupWithForm/PopupRegisterFail";
+import InfoTooltip from "./InfoToolTip";
 
-function Signup({
-  onRegisterFailClick,
-  onRegisterSucessClick,
-  isPopupRegisterSucessOpen,
-  isPopupRegisterFailOpen,
-  onClose,
-}) {
+function Signup() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessagePassword, setErrorMessagePassword] = useState("");
-
-  const classPopupRegisterSucess = isPopupRegisterSucessOpen
-    ? "popup-sucess-opened"
-    : "";
-  const classPopupRegisterFail = isPopupRegisterFailOpen
-    ? "popup-fail-opened"
-    : "";
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSucces] = useState(false);
 
   const validateEmail = (value) => {
     const emailRegex = /\S+@\S+\.\S+/;
@@ -56,21 +45,40 @@ function Signup({
     setErrorMessagePassword(error);
   }
 
+  function modalSuccess() {
+    setIsOpen(true);
+    setMessage("Vitória! Você precisa se registrar.");
+    setIsSucces(true);
+  }
+
+  function modalFail() {
+    setIsOpen(true);
+    setMessage("Ops, algo saiu deu errado! Por favor, tente novamente.");
+    setIsSucces(false);
+  }
+
+  function modalClose() {
+    setIsOpen(false);
+    setMessage("");
+    setIsSucces(false);
+  }
+
+
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      if (password !== "" && email !== "") {
+      if (password && email) {
         const response = await auth.register({ email, password });
         if (response.ok) {
           history.push("/login");
-          onRegisterSucessClick();
+          modalSuccess();
           setEmail("");
           setPassword("");
         }
       }
     } catch (error) {
       console.log("error register", error);
-      onRegisterFailClick();
+      modalFail();
       setEmail("");
       setPassword("");
     }
@@ -83,16 +91,6 @@ function Signup({
         <form className="signup__form" onSubmit={handleSubmit}>
           <div className="signup__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 2,
-                borderBottomColor: "darkgray",
-                backgroundColor: "black",
-                color: "white",
-                width: 358,
-              }}
               type="email"
               className={errorMessage ? "signup__email" : " "}
               placeholder="E-mail"
@@ -105,16 +103,6 @@ function Signup({
           </div>
           <div className="signup__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 2,
-                borderBottomColor: "darkgray",
-                backgroundColor: "black",
-                color: "white",
-                width: 358,
-              }}
               type="password"
               className={errorMessagePassword ? "signup__password" : " "}
               placeholder="Senha"
@@ -143,14 +131,13 @@ function Signup({
             </Link>
           </div>
         </form>
-        <PopupRegisterFail
-          classPopupRegisterFail={classPopupRegisterFail}
-          onClose={onClose}
+        <InfoTooltip
+          isOpen={isOpen}
+          onClose={modalClose}
+          isSuccess={isSuccess}
+          message={message}
         />
       </section>
-      <PopupRegisterSucess
-        classPopupRegisterSucess={classPopupRegisterSucess}
-      />
     </>
   );
 }
