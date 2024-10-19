@@ -20,24 +20,6 @@ function App() {
   const [loggedIn, setloggedIn] = useState(true);
   const history = useHistory();
 
-  const [isPopupRegisterSucessOpen, setIsPopupRegisterSucessOpen] =
-    useState(false);
-  const [isPopupRegisterFailOpen, setIsPopupRegisterFailsOpen] =
-    useState(false);
-
-  function onRegisterSucessClick() {
-    setIsPopupRegisterSucessOpen(true);
-  }
-
-  function onRegisterFailClick() {
-    setIsPopupRegisterFailsOpen(true);
-  }
-
-  function handleClosePopupRegister() {
-    setIsPopupRegisterSucessOpen(false);
-    setIsPopupRegisterFailsOpen(false);
-  }
-
   useEffect(() => {
     handleCheckToken();
   });
@@ -73,13 +55,7 @@ function App() {
       <Switch>
         <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main} />
         <Route path="/register">
-          <Register
-            onRegisterSucessClick={onRegisterSucessClick}
-            onRegisterFailClick={onRegisterFailClick}
-            isPopupRegisterSucessOpen={isPopupRegisterSucessOpen}
-            isPopupRegisterFailOpen={isPopupRegisterFailOpen}
-            onClose={handleClosePopupRegister}
-          />
+          <Register />
         </Route>
         <Route path="/login">
           <Login handleLogin={handleLogin} />
@@ -89,7 +65,8 @@ function App() {
         </Route>
         <Main />
       </Switch>
-      <Footer />
+      <Footer/>
+
     </div>
   );
 }
