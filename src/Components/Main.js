@@ -3,13 +3,13 @@ import { useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { CurrentCardContext } from "../contexts/CurrentCardContext";
 import iconEdit from "../images/icone_editar.svg";
-import ProfileEdit from "./PopupWithForm/ProfileEdit";
-import ProfileImgEdit from "./PopupWithForm/ProfileImgEdit";
-import PopupWithForm from "./PopupWithForm/PopupWithForm";
+import ProfileEdit from "./Popups/ProfileEdit";
+import ProfileImgEdit from "./Popups/ProfileImgEdit";
+import PopupWithForm from "./Popups/PopupWithForm";
 import Card from "./Card";
-import NewPlace from "./PopupWithForm/NewPlace";
-import ImagePopup from "./PopupWithForm/PopupImg";
-import PopupDeleteConfirmation from "./PopupWithForm/PopupDeleteConfirmation";
+import NewPlace from "./Popups/NewPlace";
+import ImagePopup from "./Popups/PopupImg";
+import PopupDeleteConfirmation from "./Popups/PopupDeleteConfirmation";
 
 function Main() {
   const [cardLink, setCardLink] = useState({ name: "", link: "" });
