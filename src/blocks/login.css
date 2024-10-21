@@ -66,9 +66,6 @@ input {
     border-left: 0;
     border-top: 0;
     border-bottom: 1px solid darkgrey;
-    background-color: #000;
-    color: "white";
-    width: 358px;
 }
 
 .signin__email {

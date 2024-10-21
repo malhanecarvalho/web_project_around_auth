@@ -96,6 +96,10 @@ function Signup() {
               placeholder="E-mail"
               value={email}
               onChange={handleUpdateEmail}
+              style={{width: 358,
+                backgroundColor: "black",
+                color:"white"
+              }}
             />
             {errorMessage && (
               <span className="signup__span-message">{errorMessage}</span>
@@ -108,6 +112,10 @@ function Signup() {
               placeholder="Senha"
               value={password}
               onChange={handleUpdatePassword}
+              style={{width: 358,
+                backgroundColor: "black",
+                color:"white"
+              }}
             />
             {errorMessagePassword && (
               <span className="signup__span-message">

@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import {Link, withRouter, useHistory } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 
 import * as auth from "../utils/auth";
 
-function Signin({handleLogin}) {
-  const history = useHistory()  
+function Signin({ handleLogin }) {
+  const history = useHistory()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,7 +13,7 @@ function Signin({handleLogin}) {
 
   const validateEmail = (value) => {
     const emailRegex = /\S+@\S+\.\S+/;
-    if (value === "" || value.length <= 2  || !emailRegex.test(value)) {
+    if (value === "" || value.length <= 2 || !emailRegex.test(value)) {
       return "Digite um e-mail válido";
     } else {
       return "";
@@ -48,13 +48,13 @@ function Signin({handleLogin}) {
       if (password && email) {
         let response = await auth.login({ email, password });
         if (response.status === 401) {
-          return "Email ou senha inválidos"  
+          return "Email ou senha inválidos"
         };
         response = await response.json();
         if (response.token) {
-            handleLogin();
-            localStorage.setItem("Triple10", response.token);
-            history.push("/main")
+          handleLogin();
+          localStorage.setItem("Triple10", response.token);
+          history.push("/main")
         }
       }
     } catch (error) {
@@ -73,12 +73,17 @@ function Signin({handleLogin}) {
               type="email"
               className={
                 errorMessage
-                  ? "signin__email"
+                  ? "signin__email signin__input"
                   : " "
               }
               placeholder="E-mail"
               value={email}
               onChange={handleUpdateEmail}
+              style={{
+                width: 358,
+                backgroundColor: "black",
+                color:"white"
+              }}
               required
             />
             {errorMessage && (
@@ -91,12 +96,17 @@ function Signin({handleLogin}) {
               type="password"
               className={
                 errorMessagePassword
-                  ? "signin__password  signin__input_error"
+                  ? "signin__password signin__input signin__input_error"
                   : " "
               }
               placeholder="Senha"
               value={password}
               onChange={handleUpdatePassword}
+              style={{
+                width: 358,
+                backgroundColor: "black",
+                color:"white"
+              }}
               required
             />
             {errorMessagePassword && (
@@ -113,11 +123,12 @@ function Signin({handleLogin}) {
             Entrar
           </button>
           <div className="signin__link">
-          <Link to="/register" style={{color: "white",
-            textDecoration: "none"
-          }}>
-            Ainda não é membro? Inscreva-se aqui!
-          </Link>
+            <Link to="/register" style={{
+              color: "white",
+              textDecoration: "none"
+            }}>
+              Ainda não é membro? Inscreva-se aqui!
+            </Link>
           </div>
         </form>
       </section>
