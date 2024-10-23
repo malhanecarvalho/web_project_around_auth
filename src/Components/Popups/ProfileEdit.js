@@ -1,15 +1,29 @@
 import iconClose from "../../images/icone_fechar.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function ProfileEdit({
   onClose,
   classPopupProfile,
-  onProfileEditChange,
-  onUpdateUser,
+  onProfileEditChange
 }) {
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
   const [errorMessage, setErrorMessage] = useState({ name: "", about: "" });
+  const [disabledButtonSubmit, setDisabledButtonSubmit] = useState(true);
+  const classButtonSubmit = disabledButtonSubmit ? "popup__button_disabled" : "";
+
+ useEffect(() => {
+    disabledBtn(title, about)
+    console.log("funcionou")
+  }, [])
+
+  function disabledBtn(title, about) {
+    if ( title === "" || title.length <=2 && about.length <=2 || about === "") {
+    setDisabledButtonSubmit(true)
+    }else{
+     setDisabledButtonSubmit(false)
+    } 
+   }
 
   const validateinputs = (value) => {
     if (value === "" || value.length <= 2) {
@@ -24,6 +38,7 @@ function ProfileEdit({
     setTitle(value);
     const error = validateinputs(value);
     setErrorMessage({ ...errorMessage, name: error });
+    disabledBtn(value, about)
   }
 
   function handleUpdateAbout(evt) {
@@ -31,13 +46,15 @@ function ProfileEdit({
     setAbout(value);
     const error = validateinputs(value);
     setErrorMessage({ ...errorMessage, about: error });
+    disabledBtn(title, value)
   }
 
   function handleSubmitProfile(evt) {
     evt.preventDefault();
-
+  
     setTitle("");
     setAbout("");
+    setDisabledButtonSubmit(true)
 
     onClose();
   }
@@ -113,10 +130,12 @@ function ProfileEdit({
           </div>
           <button
             type="submit"
-            className="popup__button"
+            className={`${classButtonSubmit} popup__button`}
             id="button-form"
             name="buttons-forms"
             onClick={() => onProfileEditChange({ title, about })}
+            disabled={disabledButtonSubmit}
+            onSubmit={handleSubmitProfile}
           >
             Salvar
           </button>

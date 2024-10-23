@@ -65,6 +65,7 @@ function Main() {
     setIsEditAvatarPopupOpen(false);
     setIsPopupDeleteOpen(false);
   }
+
   return (
     <>
       <main className="content">

@@ -1,12 +1,28 @@
 import iconClose from "../../images/icone_fechar.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange,  onUpdateAvatar }) {
+function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange }) {
+
   const [image, setImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [disabledButtonEditSubmit, setDisabledButtonEditSubmit] = useState(true);
+  const classButtonEditSubmit = disabledButtonEditSubmit ? "popup-edit__button_disabled" : "";
+  const regexUrl = /^(?:https?:\/\/)?(w{3}\.)?[\w_-]+((\.\w{2,}){1,2})(\/([\w\._-]+\/?)*(\?[\w_-]+=[^\?\/&]*(\&[\w_-]+=[^\?\/&]*)*)?)?$/;
+
+  useEffect(() => {
+    disabledBtn(image)
+  }, [])
+
+  function disabledBtn(image) {
+    if ( image === "" || image.length <=2 || !regexUrl.test(image)) {
+     setDisabledButtonEditSubmit(true)
+    }else{
+    setDisabledButtonEditSubmit(false)
+    } 
+   }
 
   const validateinputs = (value) => {
-    if (value === "" || value.length <= 2) {
+    if (value === "" || value.length <= 2 || !regexUrl.test(value)) {
       return "Digite uma URL válida";
     } else {
       return "";
@@ -18,11 +34,14 @@ function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange,  onUpd
     setImage(value);
     const error = validateinputs(value);
     setErrorMessage(error);
+    disabledBtn(image)
   }
 
   function handleSubmitAvatar(evt) {
+
     evt.preventDefault();
     setImage("");
+    setDisabledButtonEditSubmit(true)
 
     onClose();
   }
@@ -70,9 +89,11 @@ function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange,  onUpd
           )}
           <button
             type="submit"
-            className="popup__button popup-edit__button"
+            className={`${classButtonEditSubmit} popup__button popup-edit__button`}
             id="button-form-edit"
             onClick={() => onProfileAvatarChange({ image })}
+            disabled={disabledButtonEditSubmit}
+            onSubmit={handleSubmitAvatar}
           >
             Salvar
           </button>
