@@ -14,12 +14,12 @@ function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange }) {
   }, [])
 
   function disabledBtn(image) {
-    if ( image === "" || image.length <=2 || !regexUrl.test(image)) {
-     setDisabledButtonEditSubmit(true)
-    }else{
-    setDisabledButtonEditSubmit(false)
-    } 
-   }
+    if (image === "" || image.length <= 2 || !regexUrl.test(image)) {
+      setDisabledButtonEditSubmit(true)
+    } else {
+      setDisabledButtonEditSubmit(false)
+    }
+  }
 
   const validateinputs = (value) => {
     if (value === "" || value.length <= 2 || !regexUrl.test(value)) {
@@ -63,13 +63,6 @@ function ProfileImgEdit({ onClose, classPopupEdit, onProfileAvatarChange }) {
           noValidate
         >
           <input
-            style={{
-              borderRightWidth: 0,
-              borderLeftWidth: 0,
-              borderTopWidth: 0,
-              borderBottomWidth: 0.5,
-              width: 285,
-            }}
             type="url"
             className={
               errorMessage

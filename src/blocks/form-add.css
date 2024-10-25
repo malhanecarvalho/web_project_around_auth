@@ -32,7 +32,6 @@
   display: flex;
   flex-direction: column;
   row-gap: 4px;
-  width: 72%;
 }
 
 .popup-add__form {
@@ -72,6 +71,7 @@ input{
   border-left: 0;
   border-bottom: 1px solid darkgray;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .popup__input{
@@ -88,18 +88,12 @@ input{
 }
 
 .popup-add__description-title {
-  width: 100%;
-  border-right: none;
-  border-left: none;
-  border-top: none;
+  max-width: 358px;
   margin: auto;
 }
 
 .popup-add__description-link {
-  width: 100%;
-  border-right: none;
-  border-left: none;
-  border-top: none;
+  max-width: 358px;
   margin: auto;
 }
 

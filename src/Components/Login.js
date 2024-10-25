@@ -50,10 +50,10 @@ function Signin({ handleLogin }) {
         if (response.status === 401) {
           return "Email ou senha inválidos"
         };
-        response = await response.json();
-        if (response.token) {
+        const data = await response.json();
+        if (data.token) {
           handleLogin();
-          localStorage.setItem("Triple10", response.token);
+          localStorage.setItem("Triple10", data.token);
           history.push("/main")
         }
       }

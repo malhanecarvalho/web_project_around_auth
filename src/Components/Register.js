@@ -25,7 +25,7 @@ function Signup() {
 
   const validatePassword = (value) => {
     if (value === "" || value.length <= 2) {
-      return "Digite uma válida";
+      return "Digite uma senha válida";
     } else {
       return "";
     }
@@ -70,8 +70,8 @@ function Signup() {
       if (password && email) {
         const response = await auth.register({ email, password });
         if (response.ok) {
-          history.push("/login");
           modalSuccess();
+          history.push("/login");
           setEmail("");
           setPassword("");
         }

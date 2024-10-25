@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { CurrentCardContext } from "../../contexts/CurrentCardContext";
 
 
-function NewPlace({ onClose, classPopupAddPlace}) {
+function NewPlace({ onClose, classPopupAddPlace }) {
 
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -21,23 +21,22 @@ function NewPlace({ onClose, classPopupAddPlace}) {
   }, [])
 
   function disabledBtn(title, url) {
-   if ( title === "" || title.length <=2 && url.length <=2 || url === "" || !regexUrl.test(url)) {
-    setDisabledButtonAddSubmit(true)
-   }else{
-    setDisabledButtonAddSubmit(false)
-   } 
+    if (title === "" || title.length <= 2 && url.length <= 2 || url === "" || !regexUrl.test(url)) {
+      setDisabledButtonAddSubmit(true)
+    } else {
+      setDisabledButtonAddSubmit(false)
+    }
   }
 
   const validateInput = (value) => {
     if (value === "" || value.length <= 2) {
       return "Campo obrigatório";
-    } else {  
+    } else {
       return "";
     }
   };
 
   const validateInputUrl = (value) => {
-    const regexUrl = /^(?:https?:\/\/)?(w{3}\.)?[\w_-]+((\.\w{2,}){1,2})(\/([\w\._-]+\/?)*(\?[\w_-]+=[^\?\/&]*(\&[\w_-]+=[^\?\/&]*)*)?)?$/;
     if (value === "" || value.length <= 2 || !regexUrl.test(value)) {
       return "Digite uma URL válida";
     } else {
@@ -93,12 +92,6 @@ function NewPlace({ onClose, classPopupAddPlace}) {
         >
           <div className="popup-add__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="text"
               className={
                 errorMessage
@@ -118,12 +111,6 @@ function NewPlace({ onClose, classPopupAddPlace}) {
           </div>
           <div className="popup-add__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="url"
               className={
                 errorMessageURL

@@ -2,7 +2,6 @@ import React, {
   Switch,
   Route,
   withRouter,
-  Redirect,
   useHistory,
 } from "react-router-dom";
 
@@ -22,14 +21,14 @@ function App() {
 
   useEffect(() => {
     handleCheckToken();
-  });
+  }, []);
 
   async function handleCheckToken() {
     const isToken = localStorage.getItem("Triple10");
 
     if (isToken) {
       try {
-        const response = await auth.checkToken(response.isToken);
+        const response = await auth.checkToken(isToken);
         if (response.ok) {
           handleLogin();
           history.push("/main");
@@ -50,7 +49,7 @@ function App() {
 
   return (
     <div className="page">
-      <Header />
+      <Header/>
       {loggedIn && <NavBar handleLogout={handleLogout} />}
       <Switch>
         <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main} />
@@ -60,12 +59,12 @@ function App() {
         <Route path="/login">
           <Login handleLogin={handleLogin} />
         </Route>
-        <Route exact path="/">
+        {/*<Route exact path="/">
           {loggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
-        </Route>
-        <Main />
+        </Route>*/}
+        <Main/>
       </Switch>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

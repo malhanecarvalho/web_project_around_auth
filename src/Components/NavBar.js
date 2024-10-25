@@ -15,10 +15,9 @@ function NavBar({ handleLogout }) {
   let component 
   if (url === "/login") {
     component =  <NavLink
-    exact
     className="menu__item"
     activeClassName="menu__item_active"
-    to="/login"
+    exact to="/login"
   >
     Faça o login
   </NavLink>
@@ -26,10 +25,9 @@ function NavBar({ handleLogout }) {
 
   if (url === "/register") {
     component =   <NavLink
-    exact
     className="menu__item"
     activeClassName="menu__item_active"
-    to="/register"
+    exact to="/register"
   >
     Registrar
   </NavLink>

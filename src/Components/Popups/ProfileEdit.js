@@ -78,12 +78,6 @@ function ProfileEdit({
         >
           <div className="popup__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="text"
               className={
                 errorMessage.name
@@ -104,12 +98,6 @@ function ProfileEdit({
           </div>
           <div className="popup__form-display">
             <input
-              style={{
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderTopWidth: 0,
-                borderBottomWidth: 1,
-              }}
               type="text"
               className={
                 errorMessage.about

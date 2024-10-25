@@ -17,10 +17,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <CurrentUserProvider>
-      <CurrentCardProvider>
-    <App />
-    </CurrentCardProvider>
-    </CurrentUserProvider>
+        <CurrentCardProvider>
+          <App />
+        </CurrentCardProvider>
+      </CurrentUserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
