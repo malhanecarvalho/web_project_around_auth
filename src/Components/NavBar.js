@@ -1,9 +1,13 @@
 import React from "react";
-import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 
-function NavBar({ handleLogout }) {
+function NavBar({ handleLogout, loggedIn }) {
   const history = useHistory();
-  const { url } = useRouteMatch();
+  const url = useLocation();
+  const location = useLocation();
+
+  const isSignInPage = location.pathname === "/login";
+  const isSignUpPage = location.pathname === "/register";
 
   function signOut(evt) {
     evt.preventDefault();
@@ -12,7 +16,9 @@ function NavBar({ handleLogout }) {
     history.push("/login");
   }
 
+  console.log(url)
   let component 
+  console.log(component)
   if (url === "/login") {
     component =  <NavLink
     className="menu__item"
@@ -25,9 +31,10 @@ function NavBar({ handleLogout }) {
 
   if (url === "/register") {
     component =   <NavLink
+    exact
     className="menu__item"
     activeClassName="menu__item_active"
-    exact to="/register"
+    to="/register"
   >
     Registrar
   </NavLink>
@@ -43,11 +50,37 @@ function NavBar({ handleLogout }) {
   </button>
   }
 
+  const RenderMenuItems = () => {
+    if (isSignInPage) {
+      return (
+        <NavLink className="menu__item" activeClassName="menu__item_active" to="/signin">
+          Entrar
+        </NavLink>
+      );
+    } else if (isSignUpPage) {
+      return (
+        <NavLink className="menu__item" activeClassName="menu__item_active" to="/signup">
+          Faça o login
+        </NavLink>
+      );
+    } else if (loggedIn) {
+      return (
+        <>
+          <button onClick={signOut} className="menu__item menu__button">
+            Sair
+          </button>
+        </>
+      );
+    }
+    
+    return null; 
+  };
+
   return (
     <nav className="menu">
-   { component}
+  <RenderMenuItems/>
     </nav>
   );
 }
 
-export default NavBar;
+//export default NavBar;

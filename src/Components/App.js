@@ -2,6 +2,7 @@ import React, {
   Switch,
   Route,
   withRouter,
+  Redirect,
   useHistory,
 } from "react-router-dom";
 
@@ -9,14 +10,13 @@ import { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import NavBar from "./NavBar";
 import Register from "./Register";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth";
 
 function App() {
-  const [loggedIn, setloggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -35,22 +35,24 @@ function App() {
         }
       } catch (error) {
         console.log(error);
+        setLoggedIn(false);
       }
+    }else{
+      setLoggedIn(false);
     }
   }
 
   function handleLogin() {
-    setloggedIn(true);
+    setLoggedIn(true);
   }
 
   function handleLogout() {
-    setloggedIn(false);
+    setLoggedIn(false);
   }
 
   return (
     <div className="page">
-      <Header/>
-      {loggedIn && <NavBar handleLogout={handleLogout} />}
+      <Header handleLogout={handleLogout} loggedIn={loggedIn} />
       <Switch>
         <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main} />
         <Route path="/register">
@@ -59,10 +61,10 @@ function App() {
         <Route path="/login">
           <Login handleLogin={handleLogin} />
         </Route>
-        {/*<Route exact path="/">
+         <Route exact path="/">
           {loggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
-        </Route>*/}
-        <Main/>
+        </Route>
+        <Main />
       </Switch>
       <Footer />
     </div>

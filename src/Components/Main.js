@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { CurrentCardContext } from "../contexts/CurrentCardContext";
-import iconEdit from "../images/icone_editar.svg";
+import iconEdit from "../images/edit-profile-photo-icon.png";
 import ProfileEdit from "./Popups/ProfileEdit";
 import ProfileImgEdit from "./Popups/ProfileImgEdit";
 import PopupWithForm from "./Popups/PopupWithForm";
@@ -67,7 +67,6 @@ function Main() {
   }
 
   return (
-    <>
       <main className="content">
         <section className="profile">
           <div className="profile__container">
@@ -148,7 +147,6 @@ function Main() {
 
         <PopupWithForm />
       </main>
-    </>
   );
 }
 

@@ -85,7 +85,7 @@
 }
 
 .profile__button_icon_edit {
-  background-image: url(../images/icone_editar.svg);
+  background-image: url(../images/edit-button.png);
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -105,7 +105,7 @@
 }
 
 .profile__button-add_icon_add {
-  background-image: url(../images/botao_adicionar.svg);
+  background-image: url(../images/add-button.png);
   background-repeat: no-repeat;
   background-position: center;
 }

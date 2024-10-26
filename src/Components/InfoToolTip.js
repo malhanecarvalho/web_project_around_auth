@@ -1,5 +1,5 @@
 import React from "react";
-import iconClose from "../images/icone_fechar.svg";
+import iconClose from "../images/close-icon.png";
 
 const InfoTooltip = ({ isOpen, onClose, isSuccess, message }) => {
   return (

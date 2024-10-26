@@ -1,4 +1,4 @@
-import iconClose from "../../images/icone_fechar.svg";
+import iconClose from "../../images/close-icon.png";
 import React from "react";
 import { useState, useEffect } from "react";
 import { CurrentCardContext } from "../../contexts/CurrentCardContext";

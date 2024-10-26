@@ -1,4 +1,4 @@
-import iconClose from "../../images/icone_fechar.svg";
+import iconClose from "../../images/close-icon.png";
 
 function PopupDeleteConfirmation({cardDelete, onDelete, myId, onClose, classPopupDeleteCard}) {
 

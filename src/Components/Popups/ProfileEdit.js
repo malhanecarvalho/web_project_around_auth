@@ -1,4 +1,4 @@
-import iconClose from "../../images/icone_fechar.svg";
+import iconClose from "../../images/close-icon.png";
 import { useState, useEffect } from "react";
 
 function ProfileEdit({
@@ -14,7 +14,6 @@ function ProfileEdit({
 
  useEffect(() => {
     disabledBtn(title, about)
-    console.log("funcionou")
   }, [])
 
   function disabledBtn(title, about) {

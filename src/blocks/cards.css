@@ -60,7 +60,7 @@
   position: absolute;
   bottom: 25px;
   right: 12px;
-  background-image: url(../images/botao_curtir.svg);
+  background-image: url(../images/heart-icon.png);
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
@@ -68,13 +68,13 @@
 }
 
 .cards__icon-like-active {
-  background-image: url(../images/botao_curtida.svg);
+  background-image: url(../images/heart-full-icon.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .cards__icon-like-remove {
-  background-image: url(../images/botao_curtir.svg);
+  background-image: url(../images/heart-icon.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -100,7 +100,7 @@
   position: absolute;
   top: 18px;
   left: 250px;
-  background-image: url(../images/Trash.svg);
+  background-image: url(../images/trash.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-color: unset;
