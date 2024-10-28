@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link, withRouter, useHistory } from "react-router-dom";
-
+import InfoTooltip from "./InfoToolTip";
 import * as auth from "../utils/auth";
 
 function Signin({ handleLogin }) {
@@ -10,6 +10,9 @@ function Signin({ handleLogin }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessagePassword, setErrorMessagePassword] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSucces] = useState(false);
 
   const validateEmail = (value) => {
     const emailRegex = /\S+@\S+\.\S+/;
@@ -42,12 +45,25 @@ function Signin({ handleLogin }) {
     setErrorMessagePassword(error);
   }
 
+  function modalFailLogin() {
+    setIsOpen(true);
+    setMessage("Ops, Email ou senha incorretos. Tente novamente!");
+    setIsSucces(false);
+  }
+
+  function modalClose() {
+    setIsOpen(false);
+    setMessage("");
+    setIsSucces(false);
+  }
+
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
       if (password && email) {
         let response = await auth.login({ email, password });
         if (response.status === 401) {
+          modalFailLogin()
           return "Email ou senha inválidos"
         };
         const data = await response.json();
@@ -58,6 +74,7 @@ function Signin({ handleLogin }) {
         }
       }
     } catch (error) {
+      modalFailLogin()
       console.log("error login", error);
     }
   }
@@ -131,6 +148,12 @@ function Signin({ handleLogin }) {
             </Link>
           </div>
         </form>
+        <InfoTooltip
+          isOpen={isOpen}
+          onClose={modalClose}
+          isSuccess={isSuccess}
+          message={message}
+        />
       </section>
     </>
   );
