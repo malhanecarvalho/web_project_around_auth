@@ -37,7 +37,7 @@ function App() {
         console.log(error);
         setLoggedIn(false);
       }
-    }else{
+    } else {
       setLoggedIn(false);
     }
   }
@@ -60,9 +60,6 @@ function App() {
         </Route>
         <Route path="/login">
           <Login handleLogin={handleLogin} />
-        </Route>
-         <Route exact path="/">
-          {loggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
         </Route>
         <Main />
       </Switch>
