@@ -69,12 +69,13 @@ function Signup() {
     try {
       if (password && email) {
         const response = await auth.register({ email, password });
-        if (response.ok) {
-          modalSuccess();
-          history.push("/login");
-          setEmail("");
-          setPassword("");
+        if (!response.ok) {
+          throw new Error();
         }
+        modalSuccess();
+        setEmail("");
+        setPassword("");
+        setTimeout(() => { history.push("/login") }, 1000)
       }
     } catch (error) {
       console.log("error register", error);
@@ -85,68 +86,70 @@ function Signup() {
   }
 
   return (
-    <>
-      <section className="signup">
-        <h2 className="signup__title">Inscrever-se</h2>
-        <form className="signup__form" onSubmit={handleSubmit}>
-          <div className="signup__form-display">
-            <input
-              type="email"
-              className={errorMessage ? "signup__email" : " "}
-              placeholder="E-mail"
-              value={email}
-              onChange={handleUpdateEmail}
-              style={{width: 358,
-                backgroundColor: "black",
-                color:"white"
-              }}
-            />
-            {errorMessage && (
-              <span className="signup__span-message">{errorMessage}</span>
-            )}
-          </div>
-          <div className="signup__form-display">
-            <input
-              type="password"
-              className={errorMessagePassword ? "signup__password" : " "}
-              placeholder="Senha"
-              value={password}
-              onChange={handleUpdatePassword}
-              style={{width: 358,
-                backgroundColor: "black",
-                color:"white"
-              }}
-            />
-            {errorMessagePassword && (
-              <span className="signup__span-message">
-                {errorMessagePassword}
-              </span>
-            )}
-          </div>
-          <button
-            type="submit"
-            className="signup__button"
-            onSubmit={handleSubmit}
+
+    <section className="signup">
+      <h2 className="signup__title">Inscrever-se</h2>
+      <form className="signup__form" onSubmit={handleSubmit}>
+        <div className="signup__form-display">
+          <input
+            type="email"
+            className={errorMessage ? "signup__email" : " "}
+            placeholder="E-mail"
+            value={email}
+            onChange={handleUpdateEmail}
+            style={{
+              width: 358,
+              backgroundColor: "black",
+              color: "white"
+            }}
+          />
+          {errorMessage && (
+            <span className="signup__span-message">{errorMessage}</span>
+          )}
+        </div>
+        <div className="signup__form-display">
+          <input
+            type="password"
+            className={errorMessagePassword ? "signup__password" : " "}
+            placeholder="Senha"
+            value={password}
+            onChange={handleUpdatePassword}
+            style={{
+              width: 358,
+              backgroundColor: "black",
+              color: "white"
+            }}
+          />
+          {errorMessagePassword && (
+            <span className="signup__span-message">
+              {errorMessagePassword}
+            </span>
+          )}
+        </div>
+        <button
+          type="submit"
+          className="signup__button"
+          onSubmit={handleSubmit}
+        >
+          Inscrever-se
+        </button>
+        <div className="signup__link">
+          <Link
+            to="/login"
+            style={{ color: "white", textDecoration: "none" }}
           >
-            Inscrever-se
-          </button>
-          <div className="signup__link">
-            <Link
-              to="/login"
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              Já é um membro? Faça o login aqui!
-            </Link>
-          </div>
-        </form>
-        <InfoTooltip
-          isOpen={isOpen}
-          onClose={modalClose}
-          isSuccess={isSuccess}
-          message={message}
-        />
-      </section>
-    </>
+            Já é um membro? Faça o login aqui!
+          </Link>
+        </div>
+      </form>
+      <InfoTooltip
+        isOpen={isOpen}
+        onClose={modalClose}
+        isSuccess={isSuccess}
+        message={message}
+      />
+    </section>
+
   );
 }
 

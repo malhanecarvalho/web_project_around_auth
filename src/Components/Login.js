@@ -62,7 +62,7 @@ function Signin({ handleLogin }) {
     try {
       if (password && email) {
         let response = await auth.login({ email, password });
-        if (response.status === 401) {
+        if (!response.ok) {
           modalFailLogin()
           return "Email ou senha inválidos"
         };
@@ -77,8 +77,7 @@ function Signin({ handleLogin }) {
       modalFailLogin()
       console.log("error login", error);
     }
-  }
-
+  };
 
   return (
     <>
@@ -99,7 +98,7 @@ function Signin({ handleLogin }) {
               style={{
                 width: 358,
                 backgroundColor: "black",
-                color:"white"
+                color: "white"
               }}
               required
             />
@@ -122,7 +121,7 @@ function Signin({ handleLogin }) {
               style={{
                 width: 358,
                 backgroundColor: "black",
-                color:"white"
+                color: "white"
               }}
               required
             />
